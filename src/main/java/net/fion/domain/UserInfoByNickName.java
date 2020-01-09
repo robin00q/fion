@@ -1,15 +1,15 @@
 package net.fion.domain;
 
-public class UserDtoByNickName {
+public class UserInfoByNickName {
 
 	private String accessId;
 	private String nickname;
 	private Integer level;
 	
-	public UserDtoByNickName() {
+	public UserInfoByNickName() {
 	}
 
-	public UserDtoByNickName(String accessId, String nickname, Integer level) {
+	public UserInfoByNickName(String accessId, String nickname, Integer level) {
 		this.accessId = accessId;
 		this.nickname = nickname;
 		this.level = level;

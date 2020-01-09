@@ -2,8 +2,8 @@ package net.fion.service;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -19,7 +19,8 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.fion.domain.UserDtoByNickName;
+import net.fion.domain.UserInfoByNickName;
+import net.fion.domain.UserMatchRecord;
 import net.fion.domain.UserMaxRank;
 
 @RunWith(SpringRunner.class)
@@ -28,13 +29,15 @@ class UserServiceImplTest {
 
 	private static RestTemplate restTemplate = new RestTemplate();
 	
+	private static ObjectMapper mapper = new ObjectMapper();
+	
 	@Test
 	void 닉네임으로_유저조회() {
 		String searchByUserNickName = "https://api.nexon.co.kr/fifaonline4/v1.0/users?nickname=";
 		String nickName = "S2Jiwon";
 		
-		HttpEntity<UserDtoByNickName> requestEn  = UserServiceImpl.setAuthorizationHeaders();
-		ResponseEntity<UserDtoByNickName> responseEn = restTemplate.exchange(searchByUserNickName + nickName, HttpMethod.GET, requestEn, UserDtoByNickName.class);
+		HttpEntity<UserInfoByNickName> requestEn  = UserServiceImpl.setAuthorizationHeaders();
+		ResponseEntity<UserInfoByNickName> responseEn = restTemplate.exchange(searchByUserNickName + nickName, HttpMethod.GET, requestEn, UserInfoByNickName.class);
 
 		System.out.println(responseEn.getBody().getNickname());
 		
@@ -43,7 +46,6 @@ class UserServiceImplTest {
 
 	@Test
 	void 고유식별자로_역대최고등급조회() {
-		ObjectMapper mapper = new ObjectMapper();
 		
 		String maxRankUrlFront = "https://api.nexon.co.kr/fifaonline4/v1.0/users/";
 		String maxRankUrlBack = "/maxdivision";
@@ -57,6 +59,34 @@ class UserServiceImplTest {
 		System.out.println(userMaxRank.get(0).getMatchType());
 		
 		assertThat(userMaxRank.get(0).getMatchType(), is(50));
+	}
+	
+	@Test
+	void 고유식별자와_매치타입으로_매치기록조회() {
+		String accessId = "755a5b9573403377b23a94f9";
+		Integer matchtype = 50;
+		Integer offset = 0;
+		Integer limit = 20;
+		
+		String matchRecordUrlFront = "https://api.nexon.co.kr/fifaonline4/v1.0/users/";
+		String matchRecordUrlMatches = "/matches?matchtype=";
+		String matchRecordOffset = "&offset=";
+		String matchRecordLimit = "&limit=";
+		
+		HttpEntity<String> requestEn  = UserServiceImpl.setAuthorizationHeaders();
+		ResponseEntity<List> responseEn = 
+				restTemplate.exchange(matchRecordUrlFront + accessId + matchRecordUrlMatches + 
+						matchtype +  matchRecordOffset + offset + matchRecordLimit + limit, HttpMethod.GET, requestEn, List.class);
+		
+		UserMatchRecord userMatchRecord = new UserMatchRecord(responseEn.getBody());
+		
+		System.out.println(userMatchRecord.getRecords().get(0));
+		System.out.println(userMatchRecord.getRecords().get(1));
+		System.out.println(userMatchRecord.getRecords().size());
+		
+		assertTrue(userMatchRecord.getRecords().size() <= 20);
+		
+		
 	}
 	
 }

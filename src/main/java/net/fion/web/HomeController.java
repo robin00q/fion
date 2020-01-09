@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import net.fion.domain.UserDtoByNickName;
+import net.fion.domain.UserInfoByNickName;
 import net.fion.service.UserServiceImpl;
 
 @Controller

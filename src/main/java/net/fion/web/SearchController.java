@@ -5,8 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import net.fion.domain.UserDtoByNickName;
 import net.fion.domain.UserInfo;
+import net.fion.domain.UserInfoByNickName;
+import net.fion.domain.UserMatchRecord;
 import net.fion.domain.UserMaxRank;
 import net.fion.service.UserServiceImpl;
 
@@ -16,8 +17,9 @@ public class SearchController {
 	@GetMapping("/user/searchByNickName")
 	public String search(@RequestParam("nickname") String nickname, Model model) {
 		
-		UserDtoByNickName userDtoByNickName = UserServiceImpl.searchByUserNickName(nickname);
+		UserInfoByNickName userDtoByNickName = UserServiceImpl.searchByUserNickName(nickname);
 		UserMaxRank userMaxRank = UserServiceImpl.searchUserMaxRank(userDtoByNickName.getAccessId());
+		UserMatchRecord userMatchRecord = UserServiceImpl.searchUserMatchRecord(userDtoByNickName.getAccessId(), userMaxRank.getMatchType(), 0, 20);
 		UserInfo userInfo = new UserInfo(userDtoByNickName, userMaxRank);
 		System.out.println(userMaxRank.getDivision());
 		if(!(userDtoByNickName == null)) {
@@ -25,6 +27,9 @@ public class SearchController {
 		}
 		if(!(userMaxRank == null)) {
 			model.addAttribute("userMaxRank", userMaxRank);
+		}
+		if(!(userMatchRecord == null)) {
+			model.addAttribute("userMatchRecord", userMatchRecord.getRecords());
 		}
 //		model.addAttribute("userDtoByNickName", userDtoByNickName);
 		

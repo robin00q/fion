@@ -11,7 +11,8 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.fion.domain.UserDtoByNickName;
+import net.fion.domain.UserInfoByNickName;
+import net.fion.domain.UserMatchRecord;
 import net.fion.domain.UserMaxRank;
 
 public class UserServiceImpl {
@@ -26,20 +27,20 @@ public class UserServiceImpl {
 		return new HttpEntity<T>(headers);
 	}
 	
-	public static UserDtoByNickName searchByUserNickName(String nickName) {
+	public static UserInfoByNickName searchByUserNickName(String nickName) {
 		try {
 			String nickNameURL = "https://api.nexon.co.kr/fifaonline4/v1.0/users?nickname=";
 			
-			HttpEntity<UserDtoByNickName> requestEn  = setAuthorizationHeaders();
-			ResponseEntity<UserDtoByNickName> responseEn = restTemplate.exchange(nickNameURL + nickName, HttpMethod.GET, requestEn, UserDtoByNickName.class);
+			HttpEntity<UserInfoByNickName> requestEn  = setAuthorizationHeaders();
+			ResponseEntity<UserInfoByNickName> responseEn = restTemplate.exchange(nickNameURL + nickName, HttpMethod.GET, requestEn, UserInfoByNickName.class);
 			
-			UserDtoByNickName userDtoByNickName = new UserDtoByNickName(
+			UserInfoByNickName userInfoByNickName = new UserInfoByNickName(
 					responseEn.getBody().getAccessId(),
 					responseEn.getBody().getNickname(),
 					responseEn.getBody().getLevel()
 					);
 			
-			return userDtoByNickName;
+			return userInfoByNickName;
 			
 		} catch (Exception e) {
             e.printStackTrace();
@@ -68,6 +69,30 @@ public class UserServiceImpl {
 		} catch (Exception e) {
             e.printStackTrace();
         }
+		
+		return null;
+	}
+	
+	public static UserMatchRecord searchUserMatchRecord(String accessId, Integer matchtype, Integer offset, Integer limit) {
+		try {
+			String matchRecordUrlFront = "https://api.nexon.co.kr/fifaonline4/v1.0/users/";
+			String matchRecordUrlMatches = "/matches?matchtype=";
+			String matchRecordOffset = "&offset=";
+			String matchRecordLimit = "&limit=";
+			
+			HttpEntity<String> requestEn  = UserServiceImpl.setAuthorizationHeaders();
+			ResponseEntity<List> responseEn = 
+					restTemplate.exchange(matchRecordUrlFront + accessId + matchRecordUrlMatches + 
+							matchtype +  matchRecordOffset + offset + matchRecordLimit + limit, HttpMethod.GET, requestEn, List.class);
+			
+			UserMatchRecord userMatchRecord = new UserMatchRecord(responseEn.getBody());
+			
+			System.out.println(userMatchRecord.getRecords());
+			
+			return userMatchRecord;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return null;
 	}
