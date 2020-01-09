@@ -16,17 +16,4 @@ public class HomeController {
 		return "/index";
 	}
 	
-	@GetMapping("/user/searchByNickName")
-	public String search(@RequestParam("nickname") String nickname, Model model) {
-		
-		UserDtoByNickName userDtoByNickName = UserServiceImpl.searchByUserNickName(nickname);
-		if(userDtoByNickName == null) {
-			return "/index"; // to be updated
-		}
-		
-		model.addAttribute("userDtoByNickName", userDtoByNickName);
-		
-		
-		return "/user/search";
-	}
 }

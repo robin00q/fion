@@ -3,38 +3,14 @@
 
 <head>
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-
-<title>Bare - Start Bootstrap Template</title>
-
-<!-- Bootstrap core CSS -->
-<link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+{{> /include/header}}
 
 </head>
 
 <body>
-	<!--Navbar-->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-info indigo mb-4">
+	
 
-		<!-- Navbar brand -->
-		<a class="navbar-brand" href="/">FION</a>
-
-		<!-- Collapsible content -->
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<form class="form-inline ml-auto" action="/user/searchByNickName">
-				<input class="form-control" name="nickname" type="text" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-white btn-md my-0 ml-sm-2 bg-dark text-white" type="submit">Search</button>
-			</form>
-		</div>
-		<!-- Collapsible content -->
-
-	</nav>
-	<!--/.Navbar-->
-
-
+	{{> /include/navigator}}
 
 
 	<!-- Page Content -->
@@ -51,9 +27,7 @@
 		</div>
 	</div>
 
-	<!-- Bootstrap core JavaScript -->
-	<script src="/webjars/jquery/3.4.1/jquery.slim.min.js"></script>
-	<script src="/webjars/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+	{{> /include/footer}}
 
 </body>
 

@@ -1,16 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
+{{> /include/header}}
+
 </head>
+
 <body>
-{{#userDtoByNickName}}
+	
+	{{> /include/navigator}}
 
-유저 고유 식별자 : {{accessId}} <br/>
-유저 닉네임 : {{nickname}} <br/>
-유저 레벨 : {{level}} <br/>
+	<!-- Page Content -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				{{#userDtoByNickName}}
+				<h1 class="mt-5">조회정보 : {{nickname}}</h1>
+				<ul class="list-unstyled">
+					<li>유저 고유 식별자 : {{accessId}}</li>
+					<li>유저 닉네임 : {{nickname}} </li>
+					<li>유저 레벨 : {{level}} </li>
+				</ul>
+				{{/userDtoByNickName}}
+			</div>
+		</div>
+	</div>
 
-{{/userDtoByNickName}}
+	{{> /include/footer}}
+
 </body>
+
 </html>

@@ -32,9 +32,6 @@ public class UserServiceImpl {
 					responseEn.getBody().getNickname(),
 					responseEn.getBody().getLevel()
 					);
-			System.out.println(responseEn.getBody().getAccessId());
-			System.out.println(responseEn.getBody().getNickname());
-			System.out.println(responseEn.getBody().getLevel());
 			
 			return userDtoByNickName;
 			
