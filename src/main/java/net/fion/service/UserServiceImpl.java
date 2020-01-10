@@ -91,8 +91,6 @@ public class UserServiceImpl {
 			
 			UserMatchRecord userMatchRecord = new UserMatchRecord(responseEn.getBody());
 			
-			System.out.println(userMatchRecord.getRecords());
-			
 			return userMatchRecord;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,8 +118,6 @@ public class UserServiceImpl {
 			}
 			
 			Latest20Match latest20Match = new Latest20Match(tempMatches);
-			
-			System.out.println(latest20Match.getLatest20Match().get(0).getMatchInfo().get(0).getMatchDetail().getMatchResult());
 			
 			return latest20Match;
 			

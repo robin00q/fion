@@ -22,7 +22,6 @@ public class SearchController {
 		UserMatchRecord userMatchRecord = UserServiceImpl.searchUserMatchRecord(userDtoByNickName.getAccessId(), userMaxRank.getMatchType(), 0, 10);
 //		UserInfo userInfo = new UserInfo(userDtoByNickName, userMaxRank);
 		Latest20Match latest20Match = UserServiceImpl.MatchDetailRecord(userMatchRecord, nickname);
-		System.out.println(userMaxRank.getDivision());
 		if(!(userDtoByNickName == null)) {
 			model.addAttribute("userDtoByNickName", userDtoByNickName);
 		}
@@ -34,9 +33,7 @@ public class SearchController {
 		}
 		if(!(latest20Match == null)){
 			model.addAttribute("latest20Match", latest20Match.getLatest20Match());
-//			System.out.println(latest20Match.getLatest20Match().get(0).getMatchInfo().get(0).getMatchDetail().getMatchResult());
 		}
-//		model.addAttribute("userDtoByNickName", userDtoByNickName);
 		String test = "test";
 		model.addAttribute("test", test);
 		
