@@ -1,19 +1,19 @@
 package net.fion.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
+
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -25,7 +25,6 @@ import net.fion.domain.UserMaxRank;
 import net.fion.domain.match.Latest20Match;
 import net.fion.domain.match.Match;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes= {UserServiceImpl.class})
 class UserServiceImplTest {
 
@@ -41,8 +40,6 @@ class UserServiceImplTest {
 		HttpEntity<UserInfoByNickName> requestEn  = UserServiceImpl.setAuthorizationHeaders();
 		ResponseEntity<UserInfoByNickName> responseEn = restTemplate.exchange(searchByUserNickNameURL + nickName, HttpMethod.GET, requestEn, UserInfoByNickName.class);
 
-//		System.out.println(responseEn.getBody().getNickname());
-		
 		assertEquals(responseEn.getBody().getNickname(), nickName);
 	}
 
@@ -57,8 +54,6 @@ class UserServiceImplTest {
 		ResponseEntity<List> responseEn = restTemplate.exchange(maxRankUrlFront + accessId + maxRankUrlBack, HttpMethod.GET, requestEn, List.class);
 		
 		List<UserMaxRank> userMaxRank = mapper.convertValue(responseEn.getBody(), new TypeReference<List<UserMaxRank>>() {});
-		
-//		System.out.println(userMaxRank.get(0).getMatchType());
 		
 		assertThat(userMaxRank.get(0).getMatchType(), is(50));
 	}
@@ -81,10 +76,6 @@ class UserServiceImplTest {
 						matchtype +  matchRecordOffset + offset + matchRecordLimit + limit, HttpMethod.GET, requestEn, List.class);
 		
 		UserMatchRecord userMatchRecord = new UserMatchRecord(responseEn.getBody());
-		
-//		System.out.println(userMatchRecord.getRecords().get(0));
-//		System.out.println(userMatchRecord.getRecords().get(1));
-//		System.out.println(userMatchRecord.getRecords().size());
 		
 		assertTrue(userMatchRecord.getRecords().size() <= 20);
 	}
