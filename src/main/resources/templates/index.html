@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-{{> /include/header}}
+    <th:block th:include="include/header"></th:block>
 </head>
 <body>
-	{{> /include/navigator}}
+	<th:block th:include="include/navigator"></th:block>
 	<!-- Page Content -->
 	<div class="container">
 		<div class="row">
@@ -18,6 +18,6 @@
 			</div>
 		</div>
 	</div>
-	{{> /include/footer}}
+	<th:block th:include="include/footer"></th:block>
 </body>
 </html>

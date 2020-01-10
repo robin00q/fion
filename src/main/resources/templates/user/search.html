@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-{{> /include/header}}
+	<th:block th:include="include/header"></th:block>
 </head>
 <body>
-	{{> /include/navigator}}
+	<th:block th:include="include/navigator"></th:block>
 	<!-- Page Content -->
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
-				{{#userDtoByNickName}}
-				<h1 class="mt-5">조회정보 : {{nickname}}</h1>
+				<h1 class="mt-5" th:text="|조회정보 : ${userDtoByNickName.nickname}|"></h1>
 				<ul class="list-unstyled">
-					<li>유저 고유 식별자 : {{accessId}}</li>
-					<li>유저 닉네임 : {{nickname}} </li>
-					<li>유저 레벨 : {{level}} </li>
-					{{#userMaxRank}}
-					<li>매치 종류 : {{matchType}} </li>
-					<li>등급 식별자 : {{division}} </li>
-					<li>최고등급 달성일자 : {{achievementDate}} </li>
-					{{/userMaxRank}}
+					<li th:text="|유저 고유 식별자 : ${userDtoByNickName.accessId}|"></li>
+					<li th:text="|유저 레벨 : ${userDtoByNickName.level}|"></li>
+					
+					<li th:text="|최고 랭크 : ${userMaxRank.matchType}|"></li>
+					<li th:text="|매칭 종류 : ${userMaxRank.division}|"></li>
+					<li th:text="|최고등급 달성일자 : ${userMaxRank.achievementDate}|"></li>
+
 					<table class="table table-striped table-dark">
 					  <thead>
 					    <tr>
@@ -31,22 +29,27 @@
 					    </tr>
 					  </thead>
 					  <tbody>
-					    {{#latest20Match}}
-					    <tr>		      
-					      <th scope="row">{{matchInfo.0.matchDetail.matchResult}}</th>
-					      <td>{{matchInfo.0.nickname}}</td>
-					      <td>{{matchInfo.0.shoot.goalTotal}} : {{matchInfo.1.shoot.goalTotal}}</td>
-					      <td>{{matchInfo.1.nickname}}</td>
+					    <tr th:each="latest20Match : ${latest20Match}">
+					      <th:block th:if="${userDtoByNickName.nickname.toString().equals(latest20Match.matchInfo[0].nickname.toString())}">
+					      <th th:text="${latest20Match.matchInfo[0].matchDetail.matchResult}"scope="row"></th>
+					      <td th:text="${latest20Match.matchInfo[0].nickname}"></td>
+					      <td th:text="|${latest20Match.matchInfo[0].shoot.goalTotal} : ${latest20Match.matchInfo[1].shoot.goalTotal}|"></td>
+					      <td th:text="${latest20Match.matchInfo[1].nickname}"></td>
+					      </th:block>
+					      <th:block th:unless="${userDtoByNickName.nickname.toString().equals(latest20Match.matchInfo[0].nickname.toString())}">
+					      <th th:text="${latest20Match.matchInfo[1].matchDetail.matchResult}"scope="row"></th>
+					      <td th:text="${latest20Match.matchInfo[1].nickname}"></td>
+					      <td th:text="|${latest20Match.matchInfo[1].shoot.goalTotal} : ${latest20Match.matchInfo[0].shoot.goalTotal}|"></td>
+					      <td th:text="${latest20Match.matchInfo[0].nickname}"></td>
+					      </th:block>
 					      <td>방금</td>
 					    </tr>
-					    {{/latest20Match}}
 					  </tbody>
 					</table>
 				</ul>
-				{{/userDtoByNickName}}
 			</div>
 		</div>
 	</div>
-	{{> /include/footer}}
+	<th:block th:include="include/footer"></th:block>
 </body>
 </html>

@@ -1,9 +1,8 @@
 package net.fion.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,6 @@ import net.fion.domain.UserMatchRecord;
 import net.fion.domain.UserMaxRank;
 import net.fion.domain.match.Latest20Match;
 import net.fion.domain.match.Match;
-import net.fion.domain.match.MatchDetail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes= {UserServiceImpl.class})

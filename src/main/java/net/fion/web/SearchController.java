@@ -37,8 +37,8 @@ public class SearchController {
 //			System.out.println(latest20Match.getLatest20Match().get(0).getMatchInfo().get(0).getMatchDetail().getMatchResult());
 		}
 //		model.addAttribute("userDtoByNickName", userDtoByNickName);
-		
-		
+		String test = "test";
+		model.addAttribute("test", test);
 		
 		return "/user/search";
 	}
