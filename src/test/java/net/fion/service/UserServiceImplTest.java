@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.fion.domain.UserInfoByNickName;
 import net.fion.domain.UserMatchRecord;
 import net.fion.domain.UserMaxRank;
+import net.fion.domain.match.Latest20Match;
+import net.fion.domain.match.Match;
+import net.fion.domain.match.MatchDetail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes= {UserServiceImpl.class})
@@ -33,13 +37,13 @@ class UserServiceImplTest {
 	
 	@Test
 	void 닉네임으로_유저조회() {
-		String searchByUserNickName = "https://api.nexon.co.kr/fifaonline4/v1.0/users?nickname=";
+		String searchByUserNickNameURL = "https://api.nexon.co.kr/fifaonline4/v1.0/users?nickname=";
 		String nickName = "S2Jiwon";
 		
 		HttpEntity<UserInfoByNickName> requestEn  = UserServiceImpl.setAuthorizationHeaders();
-		ResponseEntity<UserInfoByNickName> responseEn = restTemplate.exchange(searchByUserNickName + nickName, HttpMethod.GET, requestEn, UserInfoByNickName.class);
+		ResponseEntity<UserInfoByNickName> responseEn = restTemplate.exchange(searchByUserNickNameURL + nickName, HttpMethod.GET, requestEn, UserInfoByNickName.class);
 
-		System.out.println(responseEn.getBody().getNickname());
+//		System.out.println(responseEn.getBody().getNickname());
 		
 		assertEquals(responseEn.getBody().getNickname(), nickName);
 	}
@@ -56,7 +60,7 @@ class UserServiceImplTest {
 		
 		List<UserMaxRank> userMaxRank = mapper.convertValue(responseEn.getBody(), new TypeReference<List<UserMaxRank>>() {});
 		
-		System.out.println(userMaxRank.get(0).getMatchType());
+//		System.out.println(userMaxRank.get(0).getMatchType());
 		
 		assertThat(userMaxRank.get(0).getMatchType(), is(50));
 	}
@@ -80,12 +84,41 @@ class UserServiceImplTest {
 		
 		UserMatchRecord userMatchRecord = new UserMatchRecord(responseEn.getBody());
 		
-		System.out.println(userMatchRecord.getRecords().get(0));
-		System.out.println(userMatchRecord.getRecords().get(1));
-		System.out.println(userMatchRecord.getRecords().size());
+//		System.out.println(userMatchRecord.getRecords().get(0));
+//		System.out.println(userMatchRecord.getRecords().get(1));
+//		System.out.println(userMatchRecord.getRecords().size());
 		
 		assertTrue(userMatchRecord.getRecords().size() <= 20);
+	}
+	
+	@Test
+	void 매치_상세기록조회() {
+		List<String> matchids = new ArrayList<String>();
+		matchids.add("5e1607758febac5af540c1ec");
+		matchids.add("5e16034e19bada5036ec993f");
+		matchids.add("5e127d0c5ecda100969d1129");
+		matchids.add("5e12794051e83d0478370e18");
+		matchids.add("5e127276a2a9e05075f27279");
 		
+		List<Match> tempMatches = new ArrayList<Match>();
+       
+		String matchDetailUrl = "https://api.nexon.co.kr/fifaonline4/v1.0/matches/";
+		
+		HttpEntity<String> requestEn  = UserServiceImpl.setAuthorizationHeaders();
+		
+		for(int i = 0 ; i < matchids.size() ; i++) {
+			String matchid = matchids.get(i);
+		 
+			ResponseEntity<Match> responseEn = 
+					restTemplate.exchange(matchDetailUrl + matchid, HttpMethod.GET, requestEn, Match.class);
+			
+			tempMatches.add(responseEn.getBody());
+		}
+		
+		Latest20Match latest20Match = new Latest20Match(tempMatches);
+		
+		
+		System.out.println(latest20Match.getLatest20Match().get(0).getMatchInfo().get(0).getMatchDetail().getMatchResult());
 		
 	}
 	

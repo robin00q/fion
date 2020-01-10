@@ -1,5 +1,6 @@
 package net.fion.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
@@ -14,6 +15,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.fion.domain.UserInfoByNickName;
 import net.fion.domain.UserMatchRecord;
 import net.fion.domain.UserMaxRank;
+import net.fion.domain.match.Latest20Match;
+import net.fion.domain.match.Match;
+import net.fion.domain.match.MatchInfo;
 
 public class UserServiceImpl {
 	
@@ -96,5 +100,38 @@ public class UserServiceImpl {
 		
 		return null;
 	}
+	
+	public static Latest20Match MatchDetailRecord(UserMatchRecord userMatchRecord, String nickname) {
+		try {
+			
+			String matchDetailUrl = "https://api.nexon.co.kr/fifaonline4/v1.0/matches/";
+			
+			HttpEntity<String> requestEn  = UserServiceImpl.setAuthorizationHeaders();
+			
+			List<Match> tempMatches = new ArrayList<Match>();
+			
+			for(int i = 0 ; i < userMatchRecord.getRecords().size() ; i++) {
+				String matchid = userMatchRecord.getRecords().get(i);
+				
+				ResponseEntity<Match> responseEn = 
+						restTemplate.exchange(matchDetailUrl + matchid, HttpMethod.GET, requestEn, Match.class);
+			
+				tempMatches.add(responseEn.getBody());
+			}
+			
+			Latest20Match latest20Match = new Latest20Match(tempMatches);
+			
+			System.out.println(latest20Match.getLatest20Match().get(0).getMatchInfo().get(0).getMatchDetail().getMatchResult());
+			
+			return latest20Match;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+
 }
 
