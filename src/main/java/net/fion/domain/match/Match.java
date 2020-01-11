@@ -22,8 +22,5 @@ public class Match {
 	}
 	public void setMatchInfo(List<MatchInfo> matchInfo) {
 		this.matchInfo = matchInfo;
-	}
-	
-
-	
+	}	
 }

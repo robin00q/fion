@@ -13,9 +13,9 @@ public class MatchDetail {
 	private Integer cornerKick;
 	private Integer possession;
 	
-	public MatchDetail() {
-
-	}
+	public MatchDetail() {}
+	
+	/* getter */
 	public Integer getSeasonId() {
 		return seasonId;
 	}
@@ -49,6 +49,4 @@ public class MatchDetail {
 	public Integer getPossession() {
 		return possession;
 	}
-	
-	
 }

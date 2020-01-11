@@ -10,10 +10,8 @@ import net.fion.service.UserServiceImpl;
 
 @Controller
 public class HomeController {
-	
 	@GetMapping("")
 	public String home() {
 		return "/index";
 	}
-	
 }

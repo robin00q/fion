@@ -11,6 +11,5 @@ public class UserInfo {
 	public UserInfo(UserInfoByNickName userDtoByNickName, UserMaxRank userMaxRank) {
 		this.userDtoByNickName = userDtoByNickName;
 		this.userMaxRank = userMaxRank;
-	}	
-	
+	}		
 }

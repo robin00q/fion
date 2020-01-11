@@ -6,8 +6,7 @@ public class UserInfoByNickName {
 	private String nickname;
 	private Integer level;
 	
-	public UserInfoByNickName() {
-	}
+	public UserInfoByNickName() {}
 
 	public UserInfoByNickName(String accessId, String nickname, Integer level) {
 		this.accessId = accessId;
@@ -15,6 +14,7 @@ public class UserInfoByNickName {
 		this.level = level;
 	}
 	
+	/* getter */
 	public String getAccessId() {
 		return accessId;
 	}
@@ -24,6 +24,4 @@ public class UserInfoByNickName {
 	public Integer getLevel() {
 		return level;
 	}
-	
-	
 }

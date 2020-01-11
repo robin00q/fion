@@ -19,9 +19,9 @@ public class Shoot {
 	private Integer shootPenaltyKick;
 	private Integer goalPenaltyKick;
 	
-	public Shoot() {
-	}
+	public Shoot() {}
 
+	/* getter */
 	public Integer getShootTotal() {
 		return shootTotal;
 	}
@@ -84,9 +84,5 @@ public class Shoot {
 
 	public Integer getGoalPenaltyKick() {
 		return goalPenaltyKick;
-	}
-
-	
-	
-	
+	}	
 }

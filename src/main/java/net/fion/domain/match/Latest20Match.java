@@ -16,10 +16,4 @@ public class Latest20Match {
 	public List<Match> getLatest20Match() {
 		return latest20Match;
 	}
-
-	
-	
-	
-	
-	
 }

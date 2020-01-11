@@ -7,6 +7,7 @@ public class MatchInfo {
 	private MatchDetail matchDetail;
 	private Shoot shoot;
 	
+	/* getter */
 	public String getAccessId() {
 		return accessId;
 	}
@@ -23,7 +24,7 @@ public class MatchInfo {
 		return shoot;
 	}
 
-	@Override
+	/* toString */
 	public String toString() {
 		return "MatchInfo [accessId=" + accessId + ", nickname=" + nickname + ", matchDetail=" + matchDetail + "]";
 	}

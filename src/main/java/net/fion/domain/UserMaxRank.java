@@ -6,15 +6,15 @@ public class UserMaxRank {
 	private Integer division;
 	private String achievementDate;
 	
-	public UserMaxRank() {
-	}
+	public UserMaxRank() {}
 
 	public UserMaxRank(Integer matchType, Integer division, String achievementDate) {
 		this.matchType = matchType;
 		this.division = division;
 		this.achievementDate = achievementDate;
 	}
-
+	
+	/* getter */
 	public Integer getMatchType() {
 		return matchType;
 	}
@@ -26,8 +26,4 @@ public class UserMaxRank {
 	public String getAchievementDate() {
 		return achievementDate;
 	}
-
-
-	
-	
 }

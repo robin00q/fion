@@ -6,13 +6,13 @@ public class MatchVerses {
 
 	private List<Match> matchVerses;
 
-	public MatchVerses() {
-	}
+	public MatchVerses() {}
 
 	public MatchVerses(List<Match> matchVerses) {
 		this.matchVerses = matchVerses;
 	}
 
+	/* getter */
 	public List<Match> getMatchVerses() {
 		return matchVerses;
 	}
