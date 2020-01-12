@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import net.fion.hashmap.CommonHashMap;
 import net.fion.util.SetHttpUtil;
 
 public class UserMaxRank {
@@ -35,6 +36,10 @@ public class UserMaxRank {
 
 	public String getAchievementDate() {
 		return achievementDate;
+	}
+	
+	public String getHashMatchType() {
+		return CommonHashMap.matchTypeHashMap.get(matchType.toString());
 	}
 	
 	public static UserMaxRank getMaxRankFromApi(String accessId) {
