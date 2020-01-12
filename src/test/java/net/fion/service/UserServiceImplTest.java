@@ -24,7 +24,7 @@ import net.fion.domain.UserMatchRecord;
 import net.fion.domain.UserMaxRank;
 import net.fion.domain.match.Latest20Match;
 import net.fion.domain.match.Match;
-import net.fion.util.SetHttpHeaderUtil;
+import net.fion.util.SetHttpUtil;
 
 @SpringBootTest(classes= {UserServiceImpl.class})
 class UserServiceImplTest {
@@ -38,7 +38,7 @@ class UserServiceImplTest {
 		String searchByUserNickNameURL = "https://api.nexon.co.kr/fifaonline4/v1.0/users?nickname=";
 		String nickName = "S2Jiwon";
 		
-		HttpEntity<UserInfoByNickName> requestEn  = SetHttpHeaderUtil.setAuthorizationHeaders();
+		HttpEntity<UserInfoByNickName> requestEn  = SetHttpUtil.setAuthorizationHeaders();
 		ResponseEntity<UserInfoByNickName> responseEn = restTemplate.exchange(searchByUserNickNameURL + nickName, HttpMethod.GET, requestEn, UserInfoByNickName.class);
 
 		assertEquals(responseEn.getBody().getNickname(), nickName);
@@ -51,7 +51,7 @@ class UserServiceImplTest {
 		String maxRankUrlBack = "/maxdivision";
 		String accessId = "ede1c50a5a7f087feaefd180";
 		
-		HttpEntity<UserMaxRank> requestEn  = SetHttpHeaderUtil.setAuthorizationHeaders();
+		HttpEntity<UserMaxRank> requestEn  = SetHttpUtil.setAuthorizationHeaders();
 		ResponseEntity<List> responseEn = restTemplate.exchange(maxRankUrlFront + accessId + maxRankUrlBack, HttpMethod.GET, requestEn, List.class);
 		
 		List<UserMaxRank> userMaxRank = mapper.convertValue(responseEn.getBody(), new TypeReference<List<UserMaxRank>>() {});
@@ -71,7 +71,7 @@ class UserServiceImplTest {
 		String matchRecordOffset = "&offset=";
 		String matchRecordLimit = "&limit=";
 		
-		HttpEntity<String> requestEn  = SetHttpHeaderUtil.setAuthorizationHeaders();
+		HttpEntity<String> requestEn  = SetHttpUtil.setAuthorizationHeaders();
 		ResponseEntity<List> responseEn = 
 				restTemplate.exchange(matchRecordUrlFront + accessId + matchRecordUrlMatches + 
 						matchtype +  matchRecordOffset + offset + matchRecordLimit + limit, HttpMethod.GET, requestEn, List.class);
@@ -94,7 +94,7 @@ class UserServiceImplTest {
        
 		String matchDetailUrl = "https://api.nexon.co.kr/fifaonline4/v1.0/matches/";
 		
-		HttpEntity<String> requestEn  = SetHttpHeaderUtil.setAuthorizationHeaders();
+		HttpEntity<String> requestEn  = SetHttpUtil.setAuthorizationHeaders();
 		
 		for(int i = 0 ; i < matchids.size() ; i++) {
 			String matchid = matchids.get(i);

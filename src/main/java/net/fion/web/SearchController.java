@@ -17,11 +17,11 @@ public class SearchController {
 	@GetMapping("/user/searchByNickName")
 	public String search(@RequestParam("nickname") String nickname, Model model) {
 		
-		UserInfoByNickName userDtoByNickName = UserServiceImpl.searchByUserNickName(nickname);
-		UserMaxRank userMaxRank = UserServiceImpl.searchUserMaxRank(userDtoByNickName.getAccessId());
-		UserMatchRecord userMatchRecord = UserServiceImpl.searchUserMatchRecord(userDtoByNickName.getAccessId(), userMaxRank.getMatchType(), 0, 10);
+		UserInfoByNickName userDtoByNickName = UserInfoByNickName.getUserInfoFromApi(nickname);
+		UserMaxRank userMaxRank = UserMaxRank.getMaxRankFromApi(userDtoByNickName.getAccessId());
+		UserMatchRecord userMatchRecord = UserMatchRecord.gethUserMatchRecordFromApi(userDtoByNickName.getAccessId(), userMaxRank.getMatchType(), 0, 10);
 //		UserInfo userInfo = new UserInfo(userDtoByNickName, userMaxRank);
-		Latest20Match latest20Match = UserServiceImpl.MatchDetailRecord(userMatchRecord, nickname);
+		Latest20Match latest20Match = Latest20Match.getMatchDetailsFromApi(userMatchRecord, nickname);
 		if(!(userDtoByNickName == null)) {
 			model.addAttribute("userDtoByNickName", userDtoByNickName);
 		}

@@ -1,5 +1,15 @@
 package net.fion.domain;
 
+import java.util.List;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import net.fion.util.SetHttpUtil;
+
 public class UserMaxRank {
 
 	private Integer matchType;
@@ -25,5 +35,28 @@ public class UserMaxRank {
 
 	public String getAchievementDate() {
 		return achievementDate;
+	}
+	
+	public static UserMaxRank getMaxRankFromApi(String accessId) {
+		try {
+			StringBuilder searchUrl = new StringBuilder(SetHttpUtil.nexonApiUrl + "users/" + accessId + "/maxdivision");
+			
+			HttpEntity<UserMaxRank> requestEn  = SetHttpUtil.setAuthorizationHeaders();
+			ResponseEntity<List> responseEn = 
+					SetHttpUtil.restTemplate.exchange(searchUrl.toString(), HttpMethod.GET, requestEn, List.class);
+			
+			List<UserMaxRank> listUserMaxRank = 
+					SetHttpUtil.mapper.convertValue(responseEn.getBody(), new TypeReference<List<UserMaxRank>>() {});
+			
+			UserMaxRank userMaxRank = new UserMaxRank(
+					listUserMaxRank.get(0).getMatchType(),
+					listUserMaxRank.get(0).getDivision(),
+					listUserMaxRank.get(0).getAchievementDate()
+					);
+			return userMaxRank;
+		} catch (Exception e) {
+            e.printStackTrace();
+        }
+		return null;
 	}
 }

@@ -2,8 +2,17 @@ package net.fion.util;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.web.client.RestTemplate;
 
-public class SetHttpHeaderUtil {
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class SetHttpUtil {
+	
+	public static RestTemplate restTemplate = new RestTemplate();
+	
+	public static ObjectMapper mapper = new ObjectMapper();
+	
+	public static String nexonApiUrl = "https://api.nexon.co.kr/fifaonline4/v1.0/";
 
 	public static <T> HttpEntity<T> setAuthorizationHeaders(){
 		HttpHeaders headers = new HttpHeaders();
@@ -13,4 +22,6 @@ public class SetHttpHeaderUtil {
 				+ "yNjM0MzIsImlhdCI6MTU3NzE5MTQzMn0.1uCsaHk_C0lxZiSQeQSYqAg4KpEDn8Gq3eEqGpUdQGY");
 		return new HttpEntity<T>(headers);
 	}
+	
+	
 }
