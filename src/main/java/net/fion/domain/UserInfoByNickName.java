@@ -35,7 +35,7 @@ public class UserInfoByNickName {
 		try {
 			StringBuilder searchUrl = new StringBuilder(SetHttpUtil.nexonApiUrl + "users?nickname=" + nickName);
 			
-			HttpEntity<UserInfoByNickName> requestEn  = SetHttpUtil.setAuthorizationHeaders();
+			HttpEntity requestEn  = SetHttpUtil.setAuthorizationHeaders();
 			
 			ResponseEntity<UserInfoByNickName> responseEn = 
 					SetHttpUtil.restTemplate.exchange(searchUrl.toString(), HttpMethod.GET, requestEn, UserInfoByNickName.class);

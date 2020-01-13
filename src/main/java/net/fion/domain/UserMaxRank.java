@@ -50,7 +50,7 @@ public class UserMaxRank {
 		try {
 			StringBuilder searchUrl = new StringBuilder(SetHttpUtil.nexonApiUrl + "users/" + accessId + "/maxdivision");
 			
-			HttpEntity<UserMaxRank> requestEn  = SetHttpUtil.setAuthorizationHeaders();
+			HttpEntity requestEn = SetHttpUtil.setAuthorizationHeaders();
 			ResponseEntity<List> responseEn = 
 					SetHttpUtil.restTemplate.exchange(searchUrl.toString(), HttpMethod.GET, requestEn, List.class);
 			

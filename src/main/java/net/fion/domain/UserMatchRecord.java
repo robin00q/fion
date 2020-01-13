@@ -34,7 +34,7 @@ public class UserMatchRecord {
 					new StringBuilder(SetHttpUtil.nexonApiUrl + "users/" + accessId + "/matches?matchtype=" + 
 								matchtype + "&offset=" + offset + "&limit=" + limit);
 			
-			HttpEntity<String> requestEn  = SetHttpUtil.setAuthorizationHeaders();
+			HttpEntity requestEn  = SetHttpUtil.setAuthorizationHeaders();
 			
 			ResponseEntity<List> responseEn = 
 					SetHttpUtil.restTemplate.exchange(searchUrl.toString(), HttpMethod.GET, requestEn, List.class);
