@@ -33,20 +33,28 @@ public class JsonJacksonMapMappingUtil {
 		}
 		return null;
 	}
-
-	public static void parseMatchType() {
+	
+	private static void generateHashMap(String filePath, String key, String value, HashMap hashMap) {
+		JSONArray jsonArray = readJsonFile(filePath);
 		
-		JSONArray jsonArray = readJsonFile("/matchtype.json");
-
 		Iterator<JSONObject> iterator = jsonArray.iterator();
-		while (iterator.hasNext()) {
+		
+		while(iterator.hasNext()) {
 			JSONObject jsonObj = iterator.next();
-			String name = jsonObj.get("matchtype").toString();
-			String content = (String) jsonObj.get("desc");
-			if (content != null) {
-				CommonHashMap.matchTypeHashMap.put(name, content.toString());
+			String keyString = jsonObj.get(key).toString();
+			String valueString = (String) jsonObj.get(value);
+			if(valueString != null) {
+				hashMap.put(keyString, valueString);
 			}
 		}
+	}
+
+	public static void jsonMatchTypetoHashMap() {
+		generateHashMap("/matchtype.json", "matchtype", "desc", CommonHashMap.matchTypeHashMap);
+	}
+	
+	public static void jsonDivisiontoHashMap() {
+		generateHashMap("/division.json", "divisionId", "divisionName", CommonHashMap.divisionHashMap);
 	}
 
 }

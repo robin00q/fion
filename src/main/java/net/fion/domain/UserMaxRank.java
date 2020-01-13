@@ -42,6 +42,10 @@ public class UserMaxRank {
 		return CommonHashMap.matchTypeHashMap.get(matchType.toString());
 	}
 	
+	public String getHashDivision() {
+		return CommonHashMap.divisionHashMap.get(division.toString());
+	}
+	
 	public static UserMaxRank getMaxRankFromApi(String accessId) {
 		try {
 			StringBuilder searchUrl = new StringBuilder(SetHttpUtil.nexonApiUrl + "users/" + accessId + "/maxdivision");

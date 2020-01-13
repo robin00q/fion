@@ -1,15 +1,18 @@
 package net.fion.web;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.fion.domain.UserInfoByNickName;
 import net.fion.domain.UserMatchRecord;
 import net.fion.domain.UserMaxRank;
 import net.fion.domain.match.Latest20Match;
-import net.fion.service.UserServiceImpl;
 
 @Controller
 public class SearchController {
@@ -38,5 +41,12 @@ public class SearchController {
 		model.addAttribute("test", test);
 		
 		return "/user/search";
+	}
+	
+	@GetMapping("/user/showMatchDetail")
+	@ResponseBody
+	public String showMatchDetail(@RequestParam("matchId") String matchId) {
+		System.out.println(matchId);
+		return "ajaxtest";
 	}
 }

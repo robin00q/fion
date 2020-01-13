@@ -14,7 +14,7 @@
 					<li th:text="|유저 고유 식별자 : ${userDtoByNickName.accessId}|"></li>
 					<li th:text="|유저 레벨 : ${userDtoByNickName.level}|"></li>
 					<li th:text="|매칭 종류 : ${userMaxRank.hashMatchType}|"></li>
-					<li th:text="|최고 랭크 : ${userMaxRank.division}|"></li>
+					<li th:text="|최고 랭크 : ${userMaxRank.hashDivision}|"></li>
 					<li th:text="|최고등급 달성일자 : ${userMaxRank.achievementDate}|"></li>
 
 					<table class="table table-striped table-dark">
@@ -25,6 +25,7 @@
 					      <th scope="col">스코어</th>
 					      <th scope="col">상대 닉네임 / 상대마크</th>
 					      <th scope="col">날짜</th>
+					      <th scope="col">▼</th>
 					    </tr>
 					  </thead>
 					  <tbody>
@@ -42,9 +43,14 @@
 					      <td><a th:text="${latest20Match.matchInfo[0].nickname}" name="nickname" th:href="@{http://localhost:8080/user/searchByNickName(nickname=${latest20Match.matchInfo[0].nickname})}"></a></td>
 					      </th:block>
 					      <td>방금</td>
+					      <td id="test-table" style="cursor:pointer;" th:attr="onclick=|toggleTable('${latest20Match.matchId}')|">▼</td>
 					    </tr>
 					  </tbody>
 					</table>
+					
+					<div id="matchDetail" style="display: none;" onclick="$('#matchDetail').hide();">
+						안녕하3</br>
+					</div>
 				</ul>
 			</div>
 		</div>

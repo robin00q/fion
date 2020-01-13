@@ -6,5 +6,6 @@ public class CommonHashMap {
 	
 	public static HashMap<String, String> matchTypeHashMap = new HashMap<>();
 	
+	public static HashMap<String, String> divisionHashMap = new HashMap<>();
 	
 }
