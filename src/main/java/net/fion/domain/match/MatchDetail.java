@@ -1,5 +1,12 @@
 package net.fion.domain.match;
 
+import org.json.simple.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+
+import net.fion.util.SetHttpUtil;
+
 public class MatchDetail {
 	private Integer seasonId;
 	private String matchResult;
@@ -48,5 +55,16 @@ public class MatchDetail {
 	}
 	public Integer getPossession() {
 		return possession;
+	}
+	public static JSONObject getMatchDetailFromApi(String matchId) {
+		HttpEntity requestEn  = SetHttpUtil.setAuthorizationHeaders();
+		
+		StringBuilder searchUrl = 
+				new StringBuilder(SetHttpUtil.nexonApiUrl + "matches/" + matchId);
+		
+		ResponseEntity<JSONObject> responseEn = 
+				SetHttpUtil.restTemplate.exchange(searchUrl.toString(), HttpMethod.GET, requestEn, JSONObject.class);
+		
+		return responseEn.getBody();
 	}
 }

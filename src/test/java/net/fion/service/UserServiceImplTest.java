@@ -1,28 +1,20 @@
 package net.fion.service;
 
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.fion.domain.UserInfoByNickName;
-import net.fion.domain.UserMatchRecord;
-import net.fion.domain.UserMaxRank;
-import net.fion.domain.match.Latest20Match;
 import net.fion.domain.match.Match;
 import net.fion.util.SetHttpUtil;
 
@@ -32,6 +24,21 @@ class UserServiceImplTest {
 	private static RestTemplate restTemplate = new RestTemplate();
 	
 	private static ObjectMapper mapper = new ObjectMapper();
+	@Before
+	<T> HttpEntity<T> setheaders() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiOTkwNTE1N"
+				+ "jc0IiwiYXV0aF9pZCI6IjIiLCJ0b2tlbl90eXBlIjoiQWNjZXNzVG9rZW4iLCJzZXJ2aWNlX2lkIjoiNDMwMD"
+				+ "ExNDgxIiwiWC1BcHAtUmF0ZS1MaW1pdCI6IjIwMDAwOjEwIiwibmJmIjoxNTc3MTkxNDMyLCJleHAiOjE2NDA"
+				+ "yNjM0MzIsImlhdCI6MTU3NzE5MTQzMn0.1uCsaHk_C0lxZiSQeQSYqAg4KpEDn8Gq3eEqGpUdQGY"); 
+		
+		
+			return new HttpEntity<T>(headers);
+		
+		
+		
+		
+	}
 	
 	@Test
 	void 닉네임으로_유저조회() {
@@ -107,6 +114,23 @@ class UserServiceImplTest {
 //		
 //		Latest20Match latest20Match = new Latest20Match(tempMatches);
 //		
+	}
+	@Test
+	void 매치아이디로_JSON받기() throws ParseException {
+		
+		HttpEntity requestEn  = setheaders();
+		
+		StringBuilder searchUrl = 
+				new StringBuilder(SetHttpUtil.nexonApiUrl + "matches/" + "5e1c08b5ec5a3c729a68420f");
+		
+		ResponseEntity<JSONObject> responseEn = 
+				SetHttpUtil.restTemplate.exchange(searchUrl.toString(), HttpMethod.GET, requestEn, JSONObject.class);
+		
+		
+		
+		System.out.println(responseEn.getBody().toString());
+			
+		
 	}
 	
 }

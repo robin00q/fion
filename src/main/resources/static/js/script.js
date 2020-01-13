@@ -11,7 +11,7 @@ function toggleTable(matchId) {
 		url : "showMatchDetail",
 		type : 'get',
 		data : "matchId=" + matchId,
-		dataType : 'text',
+		dataType : 'json',
 		error : onError,
 		success : onSuccess
 	});
@@ -19,6 +19,11 @@ function toggleTable(matchId) {
 
 function onSuccess(data, status){
 	console.log(data);
+	console.log(data.matchDate);
+	
+	var elem = document.getElementById('test');
+	elem.style.color = "red";
+	
 }
 
 function onError(){

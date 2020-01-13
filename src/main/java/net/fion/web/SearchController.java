@@ -1,11 +1,9 @@
 package net.fion.web;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,6 +11,7 @@ import net.fion.domain.UserInfoByNickName;
 import net.fion.domain.UserMatchRecord;
 import net.fion.domain.UserMaxRank;
 import net.fion.domain.match.Latest20Match;
+import net.fion.domain.match.MatchDetail;
 
 @Controller
 public class SearchController {
@@ -22,7 +21,7 @@ public class SearchController {
 		
 		UserInfoByNickName userDtoByNickName = UserInfoByNickName.getUserInfoFromApi(nickname);
 		UserMaxRank userMaxRank = UserMaxRank.getMaxRankFromApi(userDtoByNickName.getAccessId());
-		UserMatchRecord userMatchRecord = UserMatchRecord.gethUserMatchRecordFromApi(userDtoByNickName.getAccessId(), userMaxRank.getMatchType(), 0, 10);
+		UserMatchRecord userMatchRecord = UserMatchRecord.gethUserMatchRecordFromApi(userDtoByNickName.getAccessId(), userMaxRank.getMatchType(), 0, 15);
 //		UserInfo userInfo = new UserInfo(userDtoByNickName, userMaxRank);
 		Latest20Match latest20Match = Latest20Match.getMatchDetailsFromApi(userMatchRecord, nickname);
 		if(!(userDtoByNickName == null)) {
@@ -45,8 +44,8 @@ public class SearchController {
 	
 	@GetMapping("/user/showMatchDetail")
 	@ResponseBody
-	public String showMatchDetail(@RequestParam("matchId") String matchId) {
-		System.out.println(matchId);
-		return "ajaxtest";
+	public JSONObject showMatchDetail(@RequestParam("matchId") String matchId) {
+		
+		return MatchDetail.getMatchDetailFromApi(matchId);
 	}
 }
