@@ -56,5 +56,10 @@ public class JsonJacksonMapMappingUtil {
 	public static void jsonDivisiontoHashMap() {
 		generateHashMap("/division.json", "divisionId", "divisionName", CommonHashMap.divisionHashMap);
 	}
+	
+	public static void jsonSpidtoHashMap() {
+		generateHashMap("/spid.json", "id", "name", CommonHashMap.spidHashMap);
+	}
+
 
 }

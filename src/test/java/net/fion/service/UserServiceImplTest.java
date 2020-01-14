@@ -2,7 +2,6 @@ package net.fion.service;
 
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.fion.domain.match.Match;
 import net.fion.util.SetHttpUtil;
 
 @SpringBootTest(classes= {UserServiceImpl.class})
