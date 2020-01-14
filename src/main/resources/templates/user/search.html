@@ -20,17 +20,17 @@
 							</tr>
 							<tr>
 								<td rowspan='3'>윤성하</td>
-								<td th:text="|매칭종류 : ${userMaxRank.hashMatchType}|"></td>
+								<td th:text="|매칭종류 : ${userMaxRankList.maxRanks[0].hashMatchType}|"></td>
 								<td rowspan='3'>윤성하</td>	
-								<td th:text="|매칭종류 : ${userMaxRank.hashMatchType}|"></td>
+								<td th:text="|매칭종류 : ${userMaxRankList.maxRanks[1].hashMatchType}|"></td>
 							</tr>
 							<tr>
-								<td th:text="|최고랭크 : ${userMaxRank.hashDivision}|"></td>
-								<td th:text="|최고랭크 : ${userMaxRank.hashDivision}|"></td>
+								<td th:text="|최고랭크 : ${userMaxRankList.maxRanks[0].hashDivision}|"></td>
+								<td th:text="|최고랭크 : ${userMaxRankList.maxRanks[1].hashDivision}|"></td>
 							</tr>
 							<tr>
-								<td th:text="|달성일자 : ${userMaxRank.achievementDate}|"></td>
-								<td th:text="|달성일자 : ${userMaxRank.achievementDate}|"></td>
+								<td th:text="|달성일자 : ${userMaxRankList.maxRanks[0].achievementDate}|"></td>
+								<td th:text="|달성일자 : ${userMaxRankList.maxRanks[1].achievementDate}|"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -66,12 +66,9 @@
 					    </tr>
 					  </tbody>
 					</table>
-					
 					<!-- <div id="matchDetail" style="display: none;" onclick="$('#matchDetail').hide();"> -->
 					<div id="matchDetail">
-					  
 					</div>
-					
 				</ul>
 			</div>
 		</div>
