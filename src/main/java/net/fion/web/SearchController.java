@@ -45,7 +45,7 @@ public class SearchController {
 	@GetMapping("/user/showMatchDetail")
 	@ResponseBody
 	public JSONObject showMatchDetail(@RequestParam("matchId") String matchId) {
-		
+			
 		return MatchDetail.getMatchDetailFromApi(matchId);
 	}
 }
