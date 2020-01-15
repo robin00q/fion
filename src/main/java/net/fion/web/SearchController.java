@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.fion.domain.UserInfoByNickName;
 import net.fion.domain.UserMatchRecord;
-import net.fion.domain.UserMaxRank;
 import net.fion.domain.UserMaxRankList;
 import net.fion.domain.match.Latest20Match;
 import net.fion.domain.match.MatchDetail;
@@ -21,19 +20,20 @@ public class SearchController {
 	public String search(@RequestParam("nickname") String nickname, Model model) {
 		
 		UserInfoByNickName userDtoByNickName = UserInfoByNickName.getUserInfoFromApi(nickname);
-//		UserMaxRank userMaxRank = UserMaxRank.getMaxRankFromApi(userDtoByNickName.getAccessId());
+		if(userDtoByNickName == null) {
+			String errorMessage = "존재하지 않는 사용자입니다.";
+			model.addAttribute("errorMessage", errorMessage);
+			return "/user/search";
+		}
+		model.addAttribute("userDtoByNickName", userDtoByNickName);
+		
 		UserMaxRankList userMaxRankList = UserMaxRankList.getUserMaxRankList(userDtoByNickName.getAccessId());
-		UserMatchRecord userMatchRecord = UserMatchRecord.gethUserMatchRecordFromApi(userDtoByNickName.getAccessId(), userMaxRankList.getMaxRanks().get(0).getMatchType(), 0, 15);
+		UserMatchRecord userMatchRecord = UserMatchRecord.gethUserMatchRecordFromApi(userDtoByNickName.getAccessId(), UserMaxRankList.getMaxRanks().get(0).getMatchType(), 0, 15);
 //		UserInfo userInfo = new UserInfo(userDtoByNickName, userMaxRank);
 		Latest20Match latest20Match = Latest20Match.getMatchDetailsFromApi(userMatchRecord, nickname);
-		if(!(userDtoByNickName == null)) {
-			model.addAttribute("userDtoByNickName", userDtoByNickName);
-		}
-//		if(!(userMaxRank == null)) {
-//			model.addAttribute("userMaxRank", userMaxRank);
-//		}
+		
 		if(!(userMaxRankList == null)) {
-			model.addAttribute("userMaxRankList", userMaxRankList);
+			model.addAttribute("userMaxRankList", UserMaxRankList.getMaxRanks());
 		}
 		if(!(userMatchRecord == null)) {
 			model.addAttribute("userMatchRecord", userMatchRecord.getRecords());

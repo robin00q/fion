@@ -54,6 +54,11 @@ public class UserInfoByNickName {
 		
 		return null;
 	}
+
+	@Override
+	public String toString() {
+		return "UserInfoByNickName [accessId=" + accessId + ", nickname=" + nickname + ", level=" + level + "]";
+	}
 	
 	
 }

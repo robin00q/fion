@@ -18,7 +18,7 @@ public class FionApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		JsonJacksonMapMappingUtil.jsonMatchTypetoHashMap();
 		JsonJacksonMapMappingUtil.jsonDivisiontoHashMap();
-		JsonJacksonMapMappingUtil.jsonSpidtoHashMap();
+		
 		SetHttpUtil.setUpHeader();
 	}
 	

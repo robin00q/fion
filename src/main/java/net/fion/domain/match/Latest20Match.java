@@ -33,7 +33,7 @@ public class Latest20Match {
 	
 	public static Latest20Match getMatchDetailsFromApi(UserMatchRecord userMatchRecord, String nickname) {
 		try {			
-			HttpEntity requestEn  = SetHttpUtil.setAuthorizationHeaders();
+			HttpEntity<?> requestEn  = SetHttpUtil.setAuthorizationHeaders();
 			
 			Latest20Match latest20Match = new Latest20Match();
 			

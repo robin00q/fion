@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import net.fion.domain.match.Match;
 import net.fion.util.SetHttpUtil;
 
 public class UserMaxRankList {
@@ -17,7 +16,7 @@ public class UserMaxRankList {
 	private static List<UserMaxRank> maxRanks;
 	
 	public UserMaxRankList() {
-		this.maxRanks = new ArrayList<UserMaxRank>();
+		UserMaxRankList.maxRanks = new ArrayList<UserMaxRank>();
 	}
 
 	public static List<UserMaxRank> getMaxRanks() {
@@ -30,7 +29,7 @@ public class UserMaxRankList {
 		
 			UserMaxRankList userMaxRankList = new UserMaxRankList(); 
 			
-			HttpEntity requestEn = SetHttpUtil.setAuthorizationHeaders();
+			HttpEntity<?> requestEn = SetHttpUtil.setAuthorizationHeaders();
 			
 			ResponseEntity<List> responseEn = 
 					SetHttpUtil.restTemplate.exchange(searchUrl.toString(), HttpMethod.GET, requestEn, List.class);
