@@ -55,4 +55,3 @@ function onSuccess(data, status){
 function onError(){
 	
 }
-/* ]]> */

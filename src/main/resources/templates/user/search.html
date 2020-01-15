@@ -14,64 +14,94 @@
 						<h1 th:text="${errorMessage}"></h1>
 					</th:block>
 					<th:block th:unless="${errorMessage}">
-						<table class="table">
-							<tbody>
-								<tr>
-									<td style="text-align:left;" colspan='4' th:text="|닉네임 : ${userDtoByNickName.nickname}|"></td>
-								</tr>
-								<tr>
-									<td style="text-align:left;" colspan='4' th:text="|레벨 : ${userDtoByNickName.level}|"></td>
-								</tr>
-								<tr class="">
-									<th:block th:each="userMaxRankList : ${userMaxRankList}">
-									<td rowspan='3'>마크</td>
-									<td th:text="|매칭종류 : ${userMaxRankList.hashMatchType}|"></td>
-									</th:block>
-								</tr>
-								<tr class="" >
-									<th:block th:each="userMaxRankList : ${userMaxRankList}">
-									<td th:text="|최고랭크 : ${userMaxRankList.hashDivision}|"></td>	
-									</th:block>
-								</tr>
-								<tr class="">
-									<th:block th:each="userMaxRankList : ${userMaxRankList}">
-									<td th:text="|달성일자 : ${userMaxRankList.achievementDate}|"></td>
-									</th:block>
-								</tr>
-							</tbody>
-						</table>
-						<table class="table">
-						  <thead class="thead-dark">
-						    <tr>
-						      <th scope="col">결과</th>
-						      <th scope="col">내 닉네임 / 내팀마크</th>
-						      <th scope="col">스코어</th>
-						      <th scope="col">상대 닉네임 / 상대마크</th>
-						      <th scope="col">날짜</th>
-						      <th scope="col">▼</th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						    <tr class="" th:each="latest20Match : ${latest20Match}">
-						      <th:block th:if="${userDtoByNickName.nickname.toString().equals(latest20Match.matchInfo[0].nickname.toString())}">
-						      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="${latest20Match.matchInfo[0].matchDetail.matchResult}"scope="row"></th>
-						      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="${latest20Match.matchInfo[0].nickname}"></td>
-						      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="|${latest20Match.matchInfo[0].shoot.goalTotal} : ${latest20Match.matchInfo[1].shoot.goalTotal}|"></td>
-						      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)"><a class="text-secondary" th:text="${latest20Match.matchInfo[1].nickname}" name="nickname" th:href="@{http://localhost:8080/user/searchByNickName(nickname=${latest20Match.matchInfo[1].nickname})}"></a></td>
-						      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)">방금</td>
-						      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" id="test-table" style="cursor:pointer;" th:attr="onclick=|toggleTable('${latest20Match.matchId}')|">▼</td>
-						      </th:block>
-						      <th:block th:unless="${userDtoByNickName.nickname.toString().equals(latest20Match.matchInfo[0].nickname.toString())}">
-						      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="${latest20Match.matchInfo[1].matchDetail.matchResult}"scope="row"></th>
-						      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="${latest20Match.matchInfo[1].nickname}"></td>
-						      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="|${latest20Match.matchInfo[1].shoot.goalTotal} : ${latest20Match.matchInfo[0].shoot.goalTotal}|"></td>
-						      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)"><a class="text-secondary" th:text="${latest20Match.matchInfo[0].nickname}" name="nickname" th:href="@{http://localhost:8080/user/searchByNickName(nickname=${latest20Match.matchInfo[0].nickname})}"></a></td>
-						      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)">방금</td>
-						      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" id="test-table" style="cursor:pointer;" th:attr="onclick=|toggleTable('${latest20Match.matchId}')|">▼</td>
-						      </th:block>
-						    </tr>
-						  </tbody>
-						</table>
+					<table class="table">
+						<tbody>
+							<tr>
+								<td style="text-align:left;" colspan='4' th:text="|닉네임 : ${userDtoByNickName.nickname}|"></td>
+							</tr>
+							<tr>
+								<td style="text-align:left;" colspan='4' th:text="|레벨 : ${userDtoByNickName.level}|"></td>
+							</tr>
+							<tr class="">
+								<th:block th:each="userMaxRankList : ${userMaxRankList}">
+								<td rowspan='3'>마크</td>
+								<td th:text="|매칭종류 : ${userMaxRankList.hashMatchType}|"></td>
+								</th:block>
+							</tr>
+							<tr class="" >
+								<th:block th:each="userMaxRankList : ${userMaxRankList}">
+								<td th:text="|최고랭크 : ${userMaxRankList.hashDivision}|"></td>	
+								</th:block>
+							</tr>
+							<tr class="">
+								<th:block th:each="userMaxRankList : ${userMaxRankList}">
+								<td th:text="|달성일자 : ${userMaxRankList.achievementDate}|"></td>
+								</th:block>
+							</tr>
+						</tbody>
+					</table>
+					</th:block>
+				</ul>
+			</div>
+			<div class="col-lg-12 text-center">
+				<ul class="list-unstyled">
+					<th:block th:unless="${errorMessage}">
+					<button type="button" id="0" onclick="change_match(50)">공식경기</button>
+					<button type="button" id="2" onclick="change_match(52)">감독모드</button>
+					<br/><br/>
+					<table class="table">
+					  <thead class="thead-dark">
+					    <tr>
+					      <th scope="col">결과</th>
+					      <th scope="col">내 닉네임 / 내팀마크</th>
+					      <th scope="col">스코어</th>
+					      <th scope="col">상대 닉네임 / 상대마크</th>
+					      <th scope="col">날짜</th>
+					      <th scope="col">▼</th>
+					    </tr>
+					  </thead>
+					  
+					  <tbody id="50">
+					    <tr class="" th:each="latest20Match : ${latest20MatchType50}">
+					      <th:block th:if="${userDtoByNickName.nickname.toString().equals(latest20Match.matchInfo[0].nickname.toString())}">
+					      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="${latest20Match.matchInfo[0].matchDetail.matchResult}"scope="row"></th>
+					      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="${latest20Match.matchInfo[0].nickname}"></td>
+					      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="|${latest20Match.matchInfo[0].shoot.goalTotal} : ${latest20Match.matchInfo[1].shoot.goalTotal}|"></td>
+					      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)"><a class="text-secondary" th:text="${latest20Match.matchInfo[1].nickname}" name="nickname" th:href="@{http://localhost:8080/user/searchByNickName(nickname=${latest20Match.matchInfo[1].nickname})}"></a></td>
+					      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)">방금</td>
+					      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" id="test-table" style="cursor:pointer;" th:attr="onclick=|toggleTable('${latest20Match.matchId}')|">▼</td>
+					      </th:block>
+					      <th:block th:unless="${userDtoByNickName.nickname.toString().equals(latest20Match.matchInfo[0].nickname.toString())}">
+					      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="${latest20Match.matchInfo[1].matchDetail.matchResult}"scope="row"></th>
+					      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="${latest20Match.matchInfo[1].nickname}"></td>
+					      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="|${latest20Match.matchInfo[1].shoot.goalTotal} : ${latest20Match.matchInfo[0].shoot.goalTotal}|"></td>
+					      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)"><a class="text-secondary" th:text="${latest20Match.matchInfo[0].nickname}" name="nickname" th:href="@{http://localhost:8080/user/searchByNickName(nickname=${latest20Match.matchInfo[0].nickname})}"></a></td>
+					      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)">방금</td>
+					      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" id="test-table" style="cursor:pointer;" th:attr="onclick=|toggleTable('${latest20Match.matchId}')|">▼</td>
+					      </th:block>
+					    </tr>
+					  </tbody>
+					  <tbody id="52" style="display:none">
+					    <tr class="" th:each="latest20Match : ${latest20MatchType52}">
+					      <th:block th:if="${userDtoByNickName.nickname.toString().equals(latest20Match.matchInfo[0].nickname.toString())}">
+					      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="${latest20Match.matchInfo[0].matchDetail.matchResult}"scope="row"></th>
+					      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="${latest20Match.matchInfo[0].nickname}"></td>
+					      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="|${latest20Match.matchInfo[0].shoot.goalTotal} : ${latest20Match.matchInfo[1].shoot.goalTotal}|"></td>
+					      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)"><a class="text-secondary" th:text="${latest20Match.matchInfo[1].nickname}" name="nickname" th:href="@{http://localhost:8080/user/searchByNickName(nickname=${latest20Match.matchInfo[1].nickname})}"></a></td>
+					      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)">방금</td>
+					      <td th:classappend="${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" id="test-table" style="cursor:pointer;" th:attr="onclick=|toggleTable('${latest20Match.matchId}')|">▼</td>
+					      </th:block>
+					      <th:block th:unless="${userDtoByNickName.nickname.toString().equals(latest20Match.matchInfo[0].nickname.toString())}">
+					      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="${latest20Match.matchInfo[1].matchDetail.matchResult}"scope="row"></th>
+					      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="${latest20Match.matchInfo[1].nickname}"></td>
+					      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" th:text="|${latest20Match.matchInfo[1].shoot.goalTotal} : ${latest20Match.matchInfo[0].shoot.goalTotal}|"></td>
+					      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)"><a class="text-secondary" th:text="${latest20Match.matchInfo[0].nickname}" name="nickname" th:href="@{http://localhost:8080/user/searchByNickName(nickname=${latest20Match.matchInfo[0].nickname})}"></a></td>
+					      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)">방금</td>
+					      <td th:classappend="${latest20Match.matchInfo[1].matchDetail.matchResult.toString().equals('승')} ? row_color_green : (${latest20Match.matchInfo[0].matchDetail.matchResult.toString().equals('패')} ? row_color_red : row_color_white)" id="test-table" style="cursor:pointer;" th:attr="onclick=|toggleTable('${latest20Match.matchId}')|">▼</td>
+					      </th:block>
+					    </tr>
+					  </tbody>
+					</table>
 					</th:block>
 					<!-- <div id="matchDetail" style="display: none;" onclick="$('#matchDetail').hide();"> -->
 					<div id="matchDetail">
