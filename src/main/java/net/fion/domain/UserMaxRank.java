@@ -1,5 +1,8 @@
 package net.fion.domain;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
@@ -35,7 +38,7 @@ public class UserMaxRank {
 	}
 
 	public String getAchievementDate() {
-		return achievementDate;
+		return this.achievementDate.substring(0, 10);
 	}
 	
 	public String getHashMatchType() {

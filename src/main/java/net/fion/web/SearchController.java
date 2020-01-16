@@ -28,8 +28,8 @@ public class SearchController {
 		model.addAttribute("userDtoByNickName", userDtoByNickName);
 		
 		UserMaxRankList userMaxRankList = UserMaxRankList.getUserMaxRankList(userDtoByNickName.getAccessId());
-		UserMatchRecord userMatchRecordType50 = UserMatchRecord.gethUserMatchRecordFromApi(userDtoByNickName.getAccessId(), UserMaxRankList.getMaxRanks().get(0).getMatchType(), 0, 15);
-		UserMatchRecord userMatchRecordType52 = UserMatchRecord.gethUserMatchRecordFromApi(userDtoByNickName.getAccessId(), UserMaxRankList.getMaxRanks().get(1).getMatchType(), 0, 15);
+		UserMatchRecord userMatchRecordType50 = UserMatchRecord.gethUserMatchRecordFromApi(userDtoByNickName.getAccessId(), 50, 0, 15);
+		UserMatchRecord userMatchRecordType52 = UserMatchRecord.gethUserMatchRecordFromApi(userDtoByNickName.getAccessId(), 52, 0, 15);
 //		UserInfo userInfo = new UserInfo(userDtoByNickName, userMaxRank);
 		Latest20Match latest20MatchType50 = Latest20Match.getMatchDetailsFromApi(userMatchRecordType50, nickname);
 		Latest20Match latest20MatchType52 = Latest20Match.getMatchDetailsFromApi(userMatchRecordType52, nickname);
@@ -43,8 +43,6 @@ public class SearchController {
 		if(!(latest20MatchType52 == null)){
 			model.addAttribute("latest20MatchType52", latest20MatchType52.getLatest20Match());
 		}
-		String test = "test";
-		model.addAttribute("test", test);
 		
 		return "/user/search";
 	}
